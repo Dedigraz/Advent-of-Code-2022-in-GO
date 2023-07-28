@@ -3,8 +3,10 @@ package main
 import (
 	// "bufio"
 	"fmt"
-	"strings"
+	"sort"
 	"strconv"
+	"strings"
+
 	// "io"
 	"os"
 )
@@ -25,13 +27,17 @@ func main() {
 	for i := 0; i < len(calories); i++ {
 		cummulatedC = append(cummulatedC, cummulator(calories[i]))
 	}
+
+	sort.Ints(cummulatedC)
+	top3 := cummulatedC[len(cummulatedC) -3:]
+
 	max := 0
-	for _, i := range(cummulatedC){
-		if i > max {
-			max = i
-		}
+
+	for _, i := range top3 {
+		max +=i
 	}
-	fmt.Print( max)
+
+	fmt.Print(max )
 }
 
 func cummulator(calorieList string) int{
