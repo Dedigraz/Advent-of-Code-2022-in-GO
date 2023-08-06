@@ -6,62 +6,62 @@ import (
 	"strings"
 )
 
-func main (){
+func main() {
 	input, err := os.ReadFile("input.txt")
 	if err != nil {
 		panic(err)
 	}
 	inputstr := string(input)
-	rounds := strings.Split(inputstr,"\r\n")
-	sumscore :=0
-	for _,r := range(rounds){
+	rounds := strings.Split(inputstr, "\r\n")
+	sumscore := 0
+	for _, r := range rounds {
 		opp := strings.Split(r, " ")[0]
 		me := strings.Split(r, " ")[1]
 
-		sumscore+= roundScore(opp,me)
+		sumscore += roundScore(opp, me)
 	}
 
 	fmt.Println(sumscore)
 }
 
-func roundScore( oppMove string, persMove string) int {
+func roundScore(oppMove string, persMove string) int {
+	outcome := 0
 	elementScore := 0
-	score := 0
 	switch persMove {
 	case "X":
-		elementScore  += 1
+		outcome += 0
 		if oppMove == "A" {
-			score += 3
+			elementScore += 3
 		}
 		if oppMove == "B" {
-			score += 0
+			elementScore += 1
 		}
 		if oppMove == "C" {
-			score += 6
+			elementScore += 2
 		}
 	case "Y":
-		elementScore  += 2
+		outcome += 3
 		if oppMove == "B" {
-			score += 3
+			elementScore += 2
 		}
 		if oppMove == "C" {
-		score += 0
-	}
+			elementScore += 3
+		}
 		if oppMove == "A" {
-		score += 6
+			elementScore += 1
 		}
 	case "Z":
-		elementScore  += 3
+		outcome += 6
 		if oppMove == "C" {
-		score += 3
-	}
-	if oppMove == "A" {
-		score += 0
-	}
-			if oppMove == "B" {
-			score += 6
+			elementScore += 1
+		}
+		if oppMove == "A" {
+			elementScore += 2
+		}
+		if oppMove == "B" {
+			elementScore += 3
 		}
 	}
 
-	return elementScore + score
+	return outcome + elementScore
 }
